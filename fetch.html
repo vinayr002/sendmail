@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Form</title>
+</head>
+
+<body>
+    <form id="report-form">
+        <input type="text" id="name" name="name1" class="inputtags" placeholder="Name" required>
+        <input type="email" id="email" name="email1" class="inputtags" placeholder="Email" required>
+        <input type="text" id="phone" name="phone1" class="inputtags" placeholder="Mobile Number" required>
+        <input type="hidden" id="url_1" name="url_12"
+            value="https://www.nobroker.in/prophub/media/real-estate-report-2022/">
+
+        <button class="Download_Report_Now_btn" id="submit" type="submit">Download Report Now</button>
+    </form>
+
+    <script>
+        document.getElementById('report-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Send data to the server
+            const response = await fetch('http://localhost:3000/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert("Thank you for submitting! Please check your email.");
+            } else {
+                alert("There was an error submitting the form.");
+            }
+        });
+    </script>
+</body>
+
+</html>
